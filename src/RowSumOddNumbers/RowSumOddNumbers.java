@@ -1,3 +1,5 @@
+package RowSumOddNumbers;
+
 public class RowSumOddNumbers {
 
     public static int rowSumOddNumbers(int n){

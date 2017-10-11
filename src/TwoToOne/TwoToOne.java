@@ -1,3 +1,5 @@
+package TwoToOne;
+
 import java.util.HashSet;
 
 public class TwoToOne {

@@ -1,3 +1,5 @@
+package NthSeries;
+
 public class NthSeries {
 
     public static void main(String[] args) {
