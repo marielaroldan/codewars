@@ -1,6 +1,8 @@
 package countingduplicates;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CountingDuplicates {
 
@@ -11,10 +13,17 @@ public class CountingDuplicates {
     public static int duplicateCount(String text){
 
         char[] repited = text.toLowerCase().toCharArray();
-        HashMap<Character,Integer> countMap =  new HashMap<>();
+        Map<Character,Integer> countMap =  new HashMap<>();
+        Map<Character, Long> countMap2 = text.toLowerCase().chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
 
+        countMap2.values().stream()
+                .filter(count -> count > 1)
+                .count();
         for (int i = 0; i < repited.length; i++) {
             char key = repited[i];
+//            countMap.merge(key,1,Integer::sum);
             if(countMap.containsKey(key)){
                 int num = countMap.get(key);
                 countMap.put(key,++num);

@@ -36,7 +36,9 @@ public class SortByBinaryOnes {
             }
         }else {
             int salida = onesO2Count - onesO1Count;
+            String[] sa = {new String("aaa")};
             return  salida;
         }
+
     }
 }
