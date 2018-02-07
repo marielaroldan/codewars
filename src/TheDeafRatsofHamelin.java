@@ -16,9 +16,7 @@ public class TheDeafRatsofHamelin {
     }
 
     public static int countDeafRats(final String town){
-
         Matcher matcher = TOWN_PATTERN.matcher(town);
-
         matcher.matches();
 
         String leftSide= matcher.group("left");

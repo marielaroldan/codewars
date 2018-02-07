@@ -37,6 +37,6 @@ public class Diamond {
             row.append(" ");
         }
         return row;
-        //
+
     }
 }
