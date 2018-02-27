@@ -1,7 +1,5 @@
 public class EnoughSpace {
 
-
-
     public static int enough(int cap, int on, int wait) {
 
         int space = cap - on;

@@ -1,56 +1,67 @@
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Queue;
-import java.util.stream.Collectors;
-
 public class AlternativeSplit {
 
     public static void main(String[] args) {
 //        System.out.println(encrypt("This is a test!",1));
-        System.out.println(decrypt("hsi  etTi sats!",1));
+        System.out.println(decrypt(null, 2));
     }
 
     public static String encrypt(final String text, final int n) {
+        try{
+            if (text.length() <= 0 || n <= 0) {
+                return text;
+            }
 
-        if(text.length()<=0 || n <=0){
+            String finalText = text;
+            for (int i = 0; i < n; i++) {
+                finalText = rotateString(finalText);
+            }
+            return finalText;
+        }catch (NullPointerException e){
             return text;
         }
-
-        String finalText = text;
-        for (int i = 0; i < n; i++) {
-            finalText = rotateString(finalText);
-        }
-        return finalText;
     }
 
     public static String decrypt(final String encryptedText, final int n) {
+        try {
 
 
-        int splitIndexEncryptText = encryptedText.length()/2;
-        String odds = encryptedText.substring(0,splitIndexEncryptText);
-        String evens = encryptedText.substring(splitIndexEncryptText);
-
-        Queue<Character> odssLetters = putInQueue(odds);
-        Queue<Character> evensLetters = putInQueue(evens);
-
-        String finalText = "";
-        for (int i = 0; i < encryptedText.length(); i++) {
-            if (i%2==0){
-                finalText += evensLetters.remove();
-            }else{
-                finalText += odssLetters.remove();
+            if (encryptedText.length() <= 0 || n <= 0) {
+                return encryptedText;
             }
+            int splitIndexEncryptText = encryptedText.length() / 2;
+            String text = encryptedText;
+            StringBuilder finalText = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+
+                String odds = text.substring(0, splitIndexEncryptText);
+                String evens = text.substring(splitIndexEncryptText);
+
+                int minLength = 0;
+                if (odds.length() < evens.length()) {
+                    minLength = odds.length();
+                } else {
+                    minLength = evens.length();
+                }
+                for (int j = 0; j < minLength; j++) {
+                    finalText.append(evens.charAt(j));
+                    finalText.append(odds.charAt(j));
+                }
+                if (odds.length() > evens.length()) {
+                    char oddChar = odds.charAt(odds.length() - 1);
+                    finalText.append(oddChar);
+                } else if (odds.length() < evens.length()) {
+                    char evenChar = evens.charAt(evens.length() - 1);
+                    finalText.append(evenChar);
+                }
+                text = finalText.toString();
+                finalText = new StringBuilder();
+            }
+            return text;
+        }catch (NullPointerException e){
+            return encryptedText;
         }
-
-        return finalText;
     }
 
-    private static Queue<Character> putInQueue(String text){
-        List<Character> textAsList = text.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
-        return new ArrayDeque<Character>(textAsList);
-
-    }
     private static String rotateString(String text) {
         String stringA = "";
         String stringB = "";
